@@ -25,6 +25,8 @@ function App() {
       .map((card) => ({ ...card, id: Math.round(Math.random() * 100000000) }));
 
     setCards(shuffledCards);
+    setCardOne(null);
+    setCardTwo(null);
     setTurns(0);
   };
 
