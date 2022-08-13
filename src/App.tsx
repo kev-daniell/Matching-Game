@@ -39,7 +39,6 @@ function App() {
     if (cardOne && cardTwo) {
       setDisabled(true);
       if (cardOne.src === cardTwo.src) {
-        console.log("match");
         setCards((prevCards) =>
           prevCards.map((card: CardType) => {
             if (card.src === cardOne.src) {
@@ -49,7 +48,6 @@ function App() {
         );
         setTimeout(() => resetTurn(), 1000);
       } else {
-        console.log("no match");
         setTimeout(() => resetTurn(), 1000);
       }
     }
