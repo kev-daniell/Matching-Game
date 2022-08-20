@@ -17,7 +17,8 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "firebase emulators:start",
+    "start-hosting": "firebase emulators:start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
