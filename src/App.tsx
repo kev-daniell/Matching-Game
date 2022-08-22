@@ -18,6 +18,7 @@ function App() {
   const [cardOne, setCardOne] = useState<CardType | null>(null);
   const [cardTwo, setCardTwo] = useState<CardType | null>(null);
   const [disabled, setDisabled] = useState(false);
+  const [highScore, setHighScore] = useState<number | null>(null);
 
   const Shuffle = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -31,13 +32,17 @@ function App() {
   };
 
   const ClickCard = (card: CardType) => {
-    cardOne ? setCardTwo(card) : setCardOne(card);
+    if (!cardOne && !cardTwo) setCardOne(card);
+    else if (cardOne && !cardTwo && cardOne.id !== card.id) {
+      setCardTwo(card);
+    }
   };
 
   // check match
   useEffect(() => {
     if (cardOne && cardTwo) {
       setDisabled(true);
+      setTurns((prevTurns) => prevTurns + 1);
       if (cardOne.src === cardTwo.src) {
         setCards((prevCards) =>
           prevCards.map((card: CardType) => {
@@ -53,11 +58,23 @@ function App() {
     }
   }, [cardOne, cardTwo]);
 
+  useEffect(() => {
+    // check if game is over:
+    for (let i = 0; i < cards.length; i++) {
+      if (!cards[i].display) {
+        return;
+      }
+    }
+
+    if (turns < (highScore ?? 0) || (turns > 0 && highScore === null)) {
+      setHighScore(turns);
+    }
+  }, [cards, highScore, turns]);
+
   // reset choices & increase turn
   const resetTurn = () => {
     setCardOne(null);
     setCardTwo(null);
-    setTurns((prevTurns) => prevTurns + 1);
     setDisabled(false);
   };
 
@@ -91,6 +108,9 @@ function App() {
             disabled={disabled}
           />
         ))}
+      </div>
+      <div>
+        <p>High Score: {highScore && highScore}</p>
       </div>
     </div>
   );
