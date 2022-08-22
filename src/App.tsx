@@ -42,6 +42,7 @@ function App() {
   useEffect(() => {
     if (cardOne && cardTwo) {
       setDisabled(true);
+      setTurns((prevTurns) => prevTurns + 1);
       if (cardOne.src === cardTwo.src) {
         setCards((prevCards) =>
           prevCards.map((card: CardType) => {
@@ -50,10 +51,8 @@ function App() {
             } else return card;
           })
         );
-        setTurns((prevTurns) => prevTurns + 1);
         setTimeout(() => resetTurn(), 1000);
       } else {
-        setTurns((prevTurns) => prevTurns + 1);
         setTimeout(() => resetTurn(), 1000);
       }
     }
