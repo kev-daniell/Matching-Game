@@ -60,14 +60,17 @@ function App() {
 
   useEffect(() => {
     // check if game is over:
-    for (let i = 0; i < cards.length; i++) {
-      if (!cards[i].display) {
-        return;
+    let gameOver = true;
+    cards.forEach((card) => {
+      if (!card.display) {
+        gameOver = false;
       }
-    }
+    });
 
-    if (turns < (highScore ?? 0) || (turns > 0 && highScore === null)) {
-      setHighScore(turns);
+    if (gameOver) {
+      if (turns < (highScore ?? 0) || (turns > 0 && highScore === null)) {
+        setHighScore(turns);
+      }
     }
   }, [cards, highScore, turns]);
 
